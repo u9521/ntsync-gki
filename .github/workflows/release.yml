@@ -20,13 +20,17 @@ jobs:
         with:
           name: ntsync-gki
           path: dist
+      - uses: actions/download-artifact@v8.0.1
+        with:
+          name: ntsync-benchmark-windows-x64
+          path: dist
       - name: Create draft release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ inputs.tag }}
           VERSION: ${{ inputs.version }}
         run: |
-          gh release create "$TAG" "dist/ntsync-gki-v$VERSION.zip" \
+          gh release create "$TAG" "dist/ntsync-gki-v$VERSION.zip" "dist/ntsync_bench.exe" \
             --repo "${{ github.repository }}" \
             --draft \
             --title "ntsync-gki $TAG" \

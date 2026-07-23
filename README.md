@@ -62,6 +62,22 @@ uv run python tools/package_module.py \
 
 GitHub Actions builds every target in its matching `ghcr.io/ylarod/ddk` container, runs the packaging tests, and uploads one module zip artifact. Pushing a `vMAJOR.MINOR.PATCH` tag also creates a GitHub Draft Release.
 
+## Windows benchmark
+
+`benchmarks/ntsync_bench.c` is a standalone x64 Win32 benchmark for measuring synchronization performance in a Wine environment. It uses only Win32 and C runtime APIs, so its output is independent of any particular Wine configuration mechanism. The `Build Windows benchmark` workflow builds `ntsync_bench.exe` with MSVC x64, runs a small smoke test, and uploads the executable as the `ntsync-benchmark-windows-x64` artifact.
+
+Double-click `ntsync_bench.exe` to run the full default suite. It prints the environment, a fixed-width results table, and a CSV block, then waits for Enter so the output stays visible. Higher `ops_per_sec` and `score` values are better; lower `avg_ns/op` is better.
+
+For automated runs, use:
+
+```bat
+ntsync_bench.exe --no-pause
+ntsync_bench.exe --iterations 1000000 --warmup 10000 --threads 8 --csv-only
+ntsync_bench.exe --case wait_all_8 --iterations 1000000 --no-pause
+```
+
+Use the same executable, host, Wine version, CPU governor, and command line for every comparison. Run each configuration at least three times after the host is idle, compare the median CSV values, and record whether `ntsync` was enabled for each run. GitHub-hosted runner results are only a build/smoke check and must not be used as performance data.
+
 ## Source provenance
 
 The driver implementation is vendored at `driver/mainline/ntsync.c`, licensed GPL-2.0-only. `driver/gki_ntsync.c` adds the minimal Android GKI, 5.10 compatibility, and KernelSU device-node integration.
