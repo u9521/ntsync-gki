@@ -1,0 +1,9 @@
+GPL-2.0-only
+
+This project is licensed under the GNU General Public License version 2 only.
+
+The full license text is available from the Free Software Foundation at:
+https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+
+Files with their own SPDX-License-Identifier retain the license stated in that
+file. The ntsync driver source is GPL-2.0-only.

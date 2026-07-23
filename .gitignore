@@ -1,0 +1,16 @@
+__pycache__/
+.pytest_cache/
+.venv/
+build/
+dist/
+*.ko
+*.o
+*.mod
+*.mod.c
+*.mod.cmd
+*.order
+*.symvers
+*.cmd
+.tmp_versions/
+Module.symvers
+modules.order

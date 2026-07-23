@@ -1,0 +1,39 @@
+{
+  "targets": [
+    {
+      "id": "android12-5.10",
+      "image": "ghcr.io/ylarod/ddk-min:android12-5.10",
+      "kmi_pattern": "5.10.*-android12-*"
+    },
+    {
+      "id": "android13-5.10",
+      "image": "ghcr.io/ylarod/ddk-min:android13-5.10",
+      "kmi_pattern": "5.10.*-android13-*"
+    },
+    {
+      "id": "android13-5.15",
+      "image": "ghcr.io/ylarod/ddk-min:android13-5.15",
+      "kmi_pattern": "5.15.*-android13-*"
+    },
+    {
+      "id": "android14-5.15",
+      "image": "ghcr.io/ylarod/ddk-min:android14-5.15",
+      "kmi_pattern": "5.15.*-android14-*"
+    },
+    {
+      "id": "android14-6.1",
+      "image": "ghcr.io/ylarod/ddk-min:android14-6.1",
+      "kmi_pattern": "6.1.*-android14-*"
+    },
+    {
+      "id": "android15-6.6",
+      "image": "ghcr.io/ylarod/ddk-min:android15-6.6",
+      "kmi_pattern": "6.6.*-android15-*"
+    },
+    {
+      "id": "android16-6.12",
+      "image": "ghcr.io/ylarod/ddk-min:android16-6.12",
+      "kmi_pattern": "6.12.*-android16-*"
+    }
+  ]
+}

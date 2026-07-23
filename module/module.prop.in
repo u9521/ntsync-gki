@@ -1,0 +1,6 @@
+id=ntsync-gki
+name=NT Sync Driver for GKI Kernel
+version=${VERSION}
+versionCode=${VERSION_CODE}
+author=u9521
+description=NT synchronization primitives for KernelSU GKI devices

@@ -1,0 +1,33 @@
+name: Build GKI target
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        description: Target ID from config/targets.json.
+        required: true
+        type: string
+      image:
+        description: DDK container image for the target.
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ inputs.target }}
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ inputs.image }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build ${{ inputs.target }}
+        working-directory: driver
+        run: make
+      - uses: actions/upload-artifact@v7.0.1
+        with:
+          name: gki_ntsync-${{ inputs.target }}
+          path: driver/gki_ntsync.ko
+          if-no-files-found: error

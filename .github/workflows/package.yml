@@ -1,0 +1,43 @@
+name: Package KernelSU module
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: Module version in MAJOR.MINOR.PATCH format.
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v9.0.0
+        with:
+          enable-cache: true
+      - uses: actions/download-artifact@v8.0.1
+        with:
+          pattern: gki_ntsync-*
+          path: build/artifacts
+      - name: Arrange module artifacts
+        shell: bash
+        run: |
+          while read -r target; do
+            mkdir -p "build/modules/$target"
+            cp "build/artifacts/gki_ntsync-$target/gki_ntsync.ko" "build/modules/$target/gki_ntsync.ko"
+          done < <(jq -r '.targets[].id' config/targets.json)
+      - name: Package KernelSU module
+        run: |
+          uv run python tools/package_module.py \
+            --modules-dir build/modules \
+            --version "${{ inputs.version }}" \
+            --output "dist/ntsync-gki-v${{ inputs.version }}.zip"
+      - uses: actions/upload-artifact@v7.0.1
+        with:
+          name: ntsync-gki
+          path: dist/ntsync-gki-v${{ inputs.version }}.zip
+          if-no-files-found: error
